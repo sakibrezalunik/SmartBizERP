@@ -1,0 +1,58 @@
+@model SmartBizERP.Models.Product
+
+@{
+    ViewBag.Title = "Create Product";
+}
+
+<h2>Create Product</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductCode)
+        @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductCode, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductName)
+        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoryId, "Category")
+        @Html.DropDownList("CategoryId", null, "-- Select Category --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UnitId, "Unit")
+        @Html.DropDownList("UnitId", null, "-- Select Unit --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UnitId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CostPrice)
+        @Html.TextBoxFor(m => m.CostPrice, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CostPrice, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SellingPrice)
+        @Html.TextBoxFor(m => m.SellingPrice, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SellingPrice, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ReorderLevel)
+        @Html.TextBoxFor(m => m.ReorderLevel, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ReorderLevel, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

@@ -1,0 +1,34 @@
+@model SmartBizERP.Models.Warehouse
+
+@{ ViewBag.Title = "Edit Warehouse"; }
+
+<h2>Edit Warehouse</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.WarehouseId)
+    @Html.HiddenFor(m => m.IsActive)
+    @Html.HiddenFor(m => m.CreatedDate)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.WarehouseCode)
+        @Html.TextBoxFor(m => m.WarehouseCode, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.WarehouseCode, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.WarehouseName)
+        @Html.TextBoxFor(m => m.WarehouseName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.WarehouseName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address)
+        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

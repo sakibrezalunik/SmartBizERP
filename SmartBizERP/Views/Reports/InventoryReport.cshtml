@@ -1,0 +1,28 @@
+@model IEnumerable<SmartBizERP.Models.WarehouseStock>
+
+@{ ViewBag.Title = "Inventory Report"; }
+
+<h2>Inventory Report - Low Stock</h2>
+<p class="text-muted">Products at or below their reorder level.</p>
+
+<table class="table table-striped table-bordered">
+    <thead><tr><th>Product</th><th>Warehouse</th><th>On Hand</th><th>Reorder Level</th></tr></thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr class="table-danger">
+            <td>@item.Product.ProductName</td>
+            <td>@item.Warehouse.WarehouseName</td>
+            <td>@item.Quantity.ToString("N2")</td>
+            <td>@item.Product.ReorderLevel.ToString("N2")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-success">Nothing is currently low on stock.</div>
+}
+
+@Html.ActionLink("Back to Reports", "Index", null, new { @class = "btn btn-default" })

@@ -1,0 +1,45 @@
+@model IEnumerable<SmartBizERP.Models.SalesOrder>
+
+@{ ViewBag.Title = "Sales Orders"; }
+
+<h2>Sales Orders</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<p>@Html.ActionLink("+ New Sales Order", "Create", null, new { @class = "btn btn-primary" })</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr><th>SO No.</th><th>Customer</th><th>Warehouse</th><th>Date</th><th>Status</th><th>Total</th><th></th></tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.SalesOrderNo</td>
+            <td>@item.Customer.CustomerName</td>
+            <td>@item.Warehouse.WarehouseName</td>
+            <td>@item.OrderDate.ToString("yyyy-MM-dd")</td>
+            <td>
+                @if (item.Status == "Delivered")
+                {
+                    <span class="badge bg-success">Delivered</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Draft</span>
+                }
+            </td>
+            <td>@item.TotalAmount.ToString("N2")</td>
+            <td>@Html.ActionLink("View", "Details", new { id = item.SalesOrderId }, new { @class = "btn btn-sm btn-info" })</td>
+        </tr>
+    }
+    </tbody>
+</table>

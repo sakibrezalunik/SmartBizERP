@@ -1,0 +1,28 @@
+@model SmartBizERP.Models.Unit
+
+@{ ViewBag.Title = "Edit Unit"; }
+
+<h2>Edit Unit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.UnitId)
+    @Html.HiddenFor(m => m.IsActive)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UnitName)
+        @Html.TextBoxFor(m => m.UnitName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UnitName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ShortName)
+        @Html.TextBoxFor(m => m.ShortName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ShortName, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

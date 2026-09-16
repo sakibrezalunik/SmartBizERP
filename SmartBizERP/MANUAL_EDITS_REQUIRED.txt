@@ -1,0 +1,76 @@
+MANUAL EDITS REQUIRED (Phase 6 - Security)
+=============================================
+These two files already exist in your project. You need to make a
+small edit to each one -- they are NOT replaced by copying files in,
+because they're too small/specific to safely overwrite blindly.
+
+
+EDIT 1: App_Start/FilterConfig.cs
+-----------------------------------
+Open this file. It currently looks like this:
+
+    using System.Web;
+    using System.Web.Mvc;
+
+    namespace SmartBizERP
+    {
+        public class FilterConfig
+        {
+            public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+            {
+                filters.Add(new HandleErrorAttribute());
+            }
+        }
+    }
+
+Change the RegisterGlobalFilters method to ALSO add a global
+AuthorizeAttribute, like this:
+
+    public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+    {
+        filters.Add(new HandleErrorAttribute());
+        filters.Add(new AuthorizeAttribute());
+    }
+
+WHY: This one line makes EVERY controller and action in your entire
+project require login by default -- nobody can reach ANY page without
+being authenticated first. The [AllowAnonymous] attributes already
+placed on AccountController's Login/AccessDenied actions are what
+carve out the one necessary exception (you obviously can't require
+login to reach the login page itself).
+
+
+EDIT 2: Web.config
+--------------------
+Find the <system.web> section (it should already contain things like
+<compilation> and <httpRuntime>). Add this INSIDE <system.web>,
+alongside the other elements already there:
+
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/Login" timeout="2880" />
+    </authentication>
+
+WHY: This tells ASP.NET that when the global [AuthorizeAttribute]
+blocks an unauthenticated request, it should redirect to
+/Account/Login (and remember where the person was trying to go, via
+the returnUrl parameter) instead of just showing a blank 401 error.
+The timeout is in minutes -- 2880 = 48 hours before a login expires.
+
+
+AFTER BOTH EDITS
+------------------
+Build the solution (Ctrl+Shift+B). Run it (F5). You should be
+IMMEDIATELY redirected to /Account/Login before seeing anything else,
+even the Home page -- that confirms the lockdown is working.
+
+Log in with:
+    Username: admin
+    Password: Admin@123
+
+(This assumes you've already run 04_SmartBizERP_SecurityTables.sql
+against your database, which creates the Users/Roles tables and
+seeds this admin account.)
+
+After logging in, you should land on the Dashboard and be able to
+use the whole app normally. Click "Logout" (we'll add that link to
+the sidebar next) to confirm it kicks you back to the login page.

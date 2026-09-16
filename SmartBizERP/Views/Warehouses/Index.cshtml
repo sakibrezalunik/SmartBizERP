@@ -1,0 +1,41 @@
+@model IEnumerable<SmartBizERP.Models.Warehouse>
+
+@{ ViewBag.Title = "Warehouses"; }
+
+<h2>Warehouses</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<p>@Html.ActionLink("+ Create New Warehouse", "Create", null, new { @class = "btn btn-primary" })</p>
+
+<form method="get" class="d-flex gap-2 mb-3">
+    <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search by name or code..." />
+    <button type="submit" class="btn btn-secondary">Search</button>
+</form>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr><th>Code</th><th>Name</th><th>Address</th><th>Status</th><th></th></tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.WarehouseCode</td>
+            <td>@item.WarehouseName</td>
+            <td>@item.Address</td>
+            <td>
+                @if (item.IsActive) { <span class="badge bg-success">Active</span> }
+                else { <span class="badge bg-secondary">Inactive</span> }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.WarehouseId }, new { @class = "btn btn-sm btn-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.WarehouseId }, new { @class = "btn btn-sm btn-danger" })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

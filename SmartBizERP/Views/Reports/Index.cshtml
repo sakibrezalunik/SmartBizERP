@@ -1,0 +1,34 @@
+@{ ViewBag.Title = "Reports"; }
+
+<h2>Reports</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card p-3 mb-3">
+            <h5>Sales Report</h5>
+            <p class="text-muted">Delivered sales orders and total revenue.</p>
+            @Html.ActionLink("View", "SalesReport", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 mb-3">
+            <h5>Purchase Report</h5>
+            <p class="text-muted">Received purchase orders and total cost.</p>
+            @Html.ActionLink("View", "PurchaseReport", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 mb-3">
+            <h5>Inventory Report</h5>
+            <p class="text-muted">Products at or below reorder level.</p>
+            @Html.ActionLink("View", "InventoryReport", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 mb-3">
+            <h5>Profit Report</h5>
+            <p class="text-muted">Revenue and profit per delivered line item.</p>
+            @Html.ActionLink("View", "ProfitReport", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>

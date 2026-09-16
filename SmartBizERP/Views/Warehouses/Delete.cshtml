@@ -1,0 +1,20 @@
+@model SmartBizERP.Models.Warehouse
+
+@{ ViewBag.Title = "Delete Warehouse"; }
+
+<h2>Delete Warehouse</h2>
+
+<div class="alert alert-warning">Are you sure you want to deactivate this warehouse?</div>
+
+<dl class="dl-horizontal">
+    <dt>Code</dt><dd>@Model.WarehouseCode</dd>
+    <dt>Name</dt><dd>@Model.WarehouseName</dd>
+    <dt>Address</dt><dd>@Model.Address</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Deactivate</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

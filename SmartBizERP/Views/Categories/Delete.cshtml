@@ -1,0 +1,19 @@
+@model SmartBizERP.Models.Category
+
+@{ ViewBag.Title = "Delete Category"; }
+
+<h2>Delete Category</h2>
+
+<div class="alert alert-warning">Are you sure you want to deactivate this category?</div>
+
+<dl class="dl-horizontal">
+    <dt>Name</dt><dd>@Model.CategoryName</dd>
+    <dt>Description</dt><dd>@Model.Description</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Deactivate</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

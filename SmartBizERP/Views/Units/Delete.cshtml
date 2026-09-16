@@ -1,0 +1,19 @@
+@model SmartBizERP.Models.Unit
+
+@{ ViewBag.Title = "Delete Unit"; }
+
+<h2>Delete Unit</h2>
+
+<div class="alert alert-warning">Are you sure you want to deactivate this unit?</div>
+
+<dl class="dl-horizontal">
+    <dt>Name</dt><dd>@Model.UnitName</dd>
+    <dt>Short Name</dt><dd>@Model.ShortName</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Deactivate</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

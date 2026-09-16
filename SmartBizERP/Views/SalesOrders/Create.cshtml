@@ -1,0 +1,21 @@
+@{ ViewBag.Title = "New Sales Order"; }
+
+<h2>New Sales Order</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Customer</label>
+        @Html.DropDownList("customerId", (SelectList)ViewBag.CustomerId, "-- Select Customer --", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Warehouse (stock will be shipped from here)</label>
+        @Html.DropDownList("warehouseId", (SelectList)ViewBag.WarehouseId, "-- Select Warehouse --", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Create Order</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

@@ -1,0 +1,20 @@
+@model SmartBizERP.Models.Customer
+
+@{ ViewBag.Title = "Delete Customer"; }
+
+<h2>Delete Customer</h2>
+
+<div class="alert alert-warning">Are you sure you want to deactivate this customer?</div>
+
+<dl class="dl-horizontal">
+    <dt>Code</dt><dd>@Model.CustomerCode</dd>
+    <dt>Name</dt><dd>@Model.CustomerName</dd>
+    <dt>Phone</dt><dd>@Model.Phone</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Deactivate</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}
